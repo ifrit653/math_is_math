@@ -3,9 +3,29 @@ public class RacineCubique {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        double number = scanner.nextDouble();
-        double precision = 0.0001;
+        double number = 0;
+        double precision = 0;
+        boolean inputValid = false;
+        while(!inputValid){
+            try{
+                System.out.println("Veuillez entrer le nombre dont il faut calculer sa racine cubique: ");
+                number = Double.parseDouble(scanner.nextLine());
+                inputValid = true;
+            }catch (NumberFormatException e){
+                System.out.println("Entree invalide, Veuillez entrer un nombre valide");
+            }
+        }
+        inputValid = false;
+        while(!inputValid){
+            try{
+                System.out.println("Veuillez entrez un precision souhaiter (ex: 0.0001): ");
+                precision = Double.parseDouble(scanner.nextLine());
+                inputValid = true;
+            }catch (NumberFormatException e){
+                System.out.println("Entree invalide, Veuillez entrer une precision valide");
+            }
+        }
+        scanner.close();
         double initialEstimation = getInitialEstimation(number);
         double root = calcRacine(precision, initialEstimation, number);
         System.out.println("la racine cubique de "+ number + " est " + root);
@@ -33,7 +53,6 @@ public class RacineCubique {
         if( temp < precision){
             return nextEstimation;
         }
-
         return calcRacine(precision, nextEstimation, number);
     }
 }
