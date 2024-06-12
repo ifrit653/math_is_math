@@ -28,7 +28,9 @@ public class RacineCubique {
         scanner.close();
         double initialEstimation = getInitialEstimation(number);
         double root = calcRacine(precision, initialEstimation, number);
-        System.out.println("la racine cubique de "+ number + " est " + root);
+        double root2 = calcRacineTvi(number, precision);
+        System.out.println("la racine cubique de "+ number + " est " + root +" en calculant avec la methode de Newton");
+        System.out.println("la racine cubique de "+ number + " est " + root2 +" en calculant avec la methode de valeur intermediaire");
     }
     //fonction pour obtenir la valeur absolue d'un nombre
     public static double toAbs(double x){
@@ -54,5 +56,29 @@ public class RacineCubique {
             return nextEstimation;
         }
         return calcRacine(precision, nextEstimation, number);
+    }
+    // fonction pour calculer la racine cubique
+    public static double calcRacineTvi(double number, double precision){
+        double a,b;
+        if(number < 0){
+            a = number;
+            b = 0;
+        }else{
+            a = 0;
+            b = number;
+        }
+        double c = 0;
+        while((b-a) > precision){
+            c = (a+b)/2.0;
+            double temp = c*c*c;
+            if(temp == number){
+                return c;
+            }else if(temp < number){
+                a = c;
+            }else{
+                b = c;
+            }
+        }
+        return c;
     }
 }
